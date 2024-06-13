@@ -1,6 +1,6 @@
 # CAGE
 
-Scripts for preprocesses, QC and mapping of CAGE sequencing data. Produced data compatible with [PRIME](https://github.com/anderssonlab/PRIME).
+Scripts for preprocesses, QC and mapping of CAGE sequencing data. Produce data compatible with [PRIME](https://github.com/anderssonlab/PRIME).
 
 ## Overview
 
@@ -9,8 +9,8 @@ Scripts for preprocesses, QC and mapping of CAGE sequencing data. Produced data 
    - Number of trimmed bases should match barcode length
 3. rDNA filtering (optional)
    - Filter reads using rRNA blacklist with `rRNAdust`
-4. Quality check after filtering using FastQC
-5. Map reads using STAR
+4. Quality check after filtering using `FastQC`
+5. Map reads using `STAR`
 6. Optional: Using VCF for variant-aware mapping**
 7. Index resulting BAM file using `samtools`
 8. Calculate alignment complexity using `preseq`
@@ -20,7 +20,7 @@ Scripts for preprocesses, QC and mapping of CAGE sequencing data. Produced data 
 
 
 ## Output
-- `${OUT}/QC` contains all QC reports. These can be consolidated into a single report using MultiQC.
+- `${OUT}/QC` contains all QC reports. These can be consolidated into a single report using `MultiQC`.
 - `${OUT}/bam_files` contains the mapped reads. The G correction step does not alter these files.
 - `${OUT}/bed_files` contains corresponding bed files. If G correction is performed, unmatched G's at the 5' end will be removed from these files.
 - `${OUT}/bw_files` contains BigWig files compatible with [PRIME](https://github.com/anderssonlab/PRIME).
@@ -45,20 +45,20 @@ As executables:
 - `bedtools`: A powerful toolset for genome arithmetic. (version 2.31.0)
 
 Files:
-STAR index in ${GENOME_PATH}/${GENOME}/STAR
-chrom size file in ${GENOME_PATH}/${GENOME}/${GENOME}.chrom.sizes
+STAR index in `${GENOME_PATH}/${GENOME}/STAR`
+chrom size file in `${GENOME_PATH}/${GENOME}/${GENOME}.chrom.sizes`
 
 
 ## Parameters
 
 - **f [STRING]**: Fastq.gz file (required).
-- **g [STRING]**: Reference genome (default=${GENOME}).
-- **b [INTEGER]**: Number of trimmed bases (default=${FIRST_BASE}).
-- **t [INTEGER]**: Number of threads used (default=${THREADS}).
-- **d [STRING]**: rRNA blacklist (default=${DUSTFILE}).
-- **o [STRING]**: Output directory (default=${OUT}).
-- **i [BOOL]**: rDNA filtering (default=${FILTER}).
-- **a [BOOL]**: Correct G additions and create bed files (default=${G_CORRECT}).
+- **g [STRING]**: Reference genome (default=`${GENOME}`).
+- **b [INTEGER]**: Number of trimmed bases (default=`${FIRST_BASE}`).
+- **t [INTEGER]**: Number of threads used (default=`${THREADS}`).
+- **d [STRING]**: rRNA blacklist (default=`${DUSTFILE}`).
+- **o [STRING]**: Output directory (default=`${OUT}`).
+- **i [BOOL]**: rDNA filtering (default=`${FILTER}`).
+- **a [BOOL]**: Correct G additions and create bed files (default=`${G_CORRECT}`).
 - **v [STRING]**: VCF path (enables VCF usage).
 - **p [STRING]**: Genome path (required).
 - **s [STRING]**: Script directory path (required).
@@ -68,7 +68,8 @@ chrom size file in ${GENOME_PATH}/${GENOME}/${GENOME}.chrom.sizes
 ```bash
 ./CAGE_STAR_mapping.sh -f [FASTQ_FILE] -g [GENOME] -b [TRIM_BASES] -t [THREADS] -d [DUSTFILE] -o [OUTPUT_DIR] -i [FILTER] -a [G_CORRECT] -v [VCF_PATH] -p [GENOME_PATH] -s [SCRIPTDIR]
 
+```
 
 ## Citation
 
-Update with PRIME citation
+To be added
