@@ -1,6 +1,6 @@
 # CAGE
 
-Scripts for preprocesses, QC and mapping of CAGE sequencing data. Produced data compatible with [PRIME](https://github.com/anderssonlab/CAGE).
+Scripts for preprocesses, QC and mapping of CAGE sequencing data. Produced data compatible with [PRIME](https://github.com/anderssonlab/PRIME).
 
 ## Overview
 
