@@ -6,7 +6,7 @@ Preprocessing, QC and mapping of CAGE sequencing data. Produces data compatible 
 
 **1.**&nbsp;&nbsp;&nbsp;&nbsp;Quality check before filtering using [`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). \
 **2.**&nbsp;&nbsp;&nbsp;&nbsp;Trimming and filtering reads using [`fastp`](https://github.com/OpenGene/fastp). (Number of trimmed bases should match barcode length.) \
-**3.**&nbsp;&nbsp;&nbsp;&nbsp;rRNA filtering with [`rRNAdust`](https://fantom.gsc.riken.jp/5/suppl/rRNAdust/) & rRNA blacklist (optional, e.g., human rDNA [U13369.1](https://www.ncbi.nlm.nih.gov/nuccore/U13369.1)). \
+**3.**&nbsp;&nbsp;&nbsp;&nbsp;rRNA filtering with [`rRNAdust`](https://fantom.gsc.riken.jp/5/suppl/rRNAdust/) & an rRNA blacklist (optional, e.g., human rDNA [U13369.1](https://www.ncbi.nlm.nih.gov/nuccore/U13369.1)). \
 **4.**&nbsp;&nbsp;&nbsp;&nbsp;Quality check after filtering using [`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). \
 **5.**&nbsp;&nbsp;&nbsp;&nbsp;Mapping reads using [`STAR`](https://github.com/alexdobin/STAR). \
 **6.**&nbsp;&nbsp;&nbsp;&nbsp;Using VCF for variant-aware mapping (optional). \
@@ -14,10 +14,11 @@ Preprocessing, QC and mapping of CAGE sequencing data. Produces data compatible 
 **8.**&nbsp;&nbsp;&nbsp;&nbsp;Calculating the alignment complexity using [`preseq`](https://preseq.readthedocs.io/en/latest/). \
 **9.**&nbsp;&nbsp;&nbsp;&nbsp;Calculating alignment statistics using [`samtools`](http://www.htslib.org). \
 **10.**&nbsp;&nbsp;&nbsp;Removing unmatched G additions (optional, recommended). \
-&nbsp;&nbsp;&nbsp;&nbsp;- Identify and process reads with G additions on the 5' end using [`samtools`](http://www.htslib.org) and [`bedtools`](https://bedtools.readthedocs.io/en/latest/).
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Identify and process reads with G additions on the 5' end using [`samtools`](http://www.htslib.org) and [`bedtools`](https://bedtools.readthedocs.io/en/latest/).
 
 
 ## Output directories & content
+
 - **QC**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contains all QC reports. These can be consolidated into a single report using [`MultiQC`](https://multiqc.info).
 - **bam_files**&nbsp;&nbsp;&nbsp;&nbsp;Contains the mapped reads. The G correction step does not alter these files.
 - **bed_files**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contains bed files. If G correction is performed, unmatched G's at the 5' end will be removed from these files.
