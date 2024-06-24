@@ -25,28 +25,41 @@ Shell sript to preprocess single- or paired-end CAGE-sequencing data as generate
 
 ## Dependencies
 
-In script directory:
-- `rRNAdust`: A tool for rRNA filtering, found in the script directory's `bin` folder. (version 1.02)
-- `bedGraphToBigWig`: A tool to convert bedGraph files to BigWig files, found in the script directory's `bin` folder. (version 4.0)
+A script directory is required (Provided via `-s` flag, see **Parameters**.) including a `bin/` subdirectory that contain:
+- **[`rRNAdust`]**(https://fantom.gsc.riken.jp/5/suppl/rRNAdust/)(v1.02) for the option to filter abundant rRNA species.
+- **[`bedGraphToBigWig`]**(https://www.encodeproject.org/software/bedgraphtobigwig/)(v4.0) to convert bedGraph to bigWig files.
 
-As executables:
-- `STAR`: RNA-seq aligner for mapping reads to the genome. (version 2.7.3a)
-- `Preseq`: For estimating library complexity. (version 2.0)
-- `fastp`: A tool for quality control and filtering of sequencing data. (version 0.23.4)
-- `perl`: Required for running various scripts. (version 5.38.0)
-- `openjdk`: Java runtime environment. (version 20.0.0)
-- `fastqc`: Quality control tool for high throughput sequence data. (version 0.12.1)
-- `samtools`: Tools for manipulating next-generation sequencing data in BAM format. (version 1.20.0)
-- `bedtools`: A powerful toolset for genome arithmetic. (version 2.31.0)
+The following software must be installed and permissions granted to execute them:
+- **[`FastQC`]**(https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)(v0.12.1)&nbsp;&nbsp;&nbsp;&nbsp;Quality control tool for high throughput sequence data. 
+- **[`fastp`]**(https://github.com/OpenGene/fastp)(v0.23.4)&nbsp;&nbsp;&nbsp;&nbsp;A tool for quality control and filtering of sequencing data. 
+- **[`STAR`]**(https://github.com/alexdobin/STAR)(v2.7.3a)&nbsp;&nbsp;&nbsp;&nbsp;RNA-seq aligner for mapping reads to the genome. 
+- **[`samtools`]**(http://www.htslib.org)(v1.20.0)&nbsp;&nbsp;&nbsp;&nbsp;Tools for manipulating next-generation sequencing data in BAM format.
+- **[`preseq`]**(https://preseq.readthedocs.io/en/latest/)(v2.0)&nbsp;&nbsp;&nbsp;&nbsp;For estimating library complexity.
+- **[`Perl`]**(https://www.perl.org/get.html)(v5.38.0)&nbsp;&nbsp;&nbsp;&nbsp;Required for running various scripts. 
+- **[`openjdk`]**(https://openjdk.org)(v20.0.0)&nbsp;&nbsp;&nbsp;&nbsp;Java runtime environment.
+- **[`bedtools`]**(https://bedtools.readthedocs.io/en/latest/)(v2.31.0))&nbsp;&nbsp;&nbsp;&nbsp;A powerful toolset for genome arithmetic.
 
-Files:
-STAR index in `${GENOME_PATH}/${GENOME}/STAR`
-chrom size file in `${GENOME_PATH}/${GENOME}/${GENOME}.chrom.sizes`
+Paths for the following, pre-computed files need to be provided:
+- The path to the STAR genome index corresponding to the species the datasets are derived from, e.g., 'hg38/STAR` (Provided by `-g` and `-p`, see **Parameters**). For instance, for the hg38 genome assembly, the corresponding human STAR genome index is prepared from the corresponding [fasta](https://www.encodeproject.org/files/GRCh38_no_alt_analysis_set_GCA_000001405.15/@@download/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta.gz) and [gtf](https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_43/gencode.v43.chr_patch_hapl_scaff.annotation.gtf.gz) files:
+```
+STAR   \
+   --runMode genomeGenerate \
+   --runThreadN 3 \
+   --genomeDir hg38/STAR \
+   --genomeFastaFiles fasta/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta \
+   --sjdbGTFfile ./gencode.v43.chr_patch_hapl_scaff.annotation.gtf
+```
 
+- The path to a text file containing the chromosome sizes for the corresponding genome, e.g., 'hg38/hg38.chrom.sizes' (Provided by `-g` and `-p`, see **Parameters**). For instance, for the hg38 genome assembly, the chromosome size file is prepared from the [fasta](https://www.encodeproject.org/files/GRCh38_no_alt_analysis_set_GCA_000001405.15/@@download/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta.gz) via [`samtools`](http://www.htslib.org):
+```
+samtools faidx fasta/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+cut -f1,2 fasta/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta.fai \
+   > hg38.chrom.sizes
+```
 
 ## Parameters
 ```
--h               This help message.
+-h               Help message.
 -f [STRING]      Fastq.gz file(s).           [required]
 -g [STRING]      Specify reference genome.   [required]
 -b [INTEGER]     Number of trimmed bases.    [default = 3]
