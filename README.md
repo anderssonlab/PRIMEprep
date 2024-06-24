@@ -5,10 +5,8 @@ Preprocessing, QC and mapping of CAGE sequencing data. Produces data compatible 
 ## Overview
 
 **1.**&nbsp;&nbsp;&nbsp;&nbsp;Quality check before filtering using [`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). \
-**2.**&nbsp;&nbsp;&nbsp;&nbsp;Trimming and filtering reads using [`fastp`](https://github.com/OpenGene/fastp).
-   - Number of trimmed bases should match barcode length.
-**3.**&nbsp;&nbsp;&nbsp;&nbsp;rDNA filtering (optional, e.g., human rDNA [U13369.1](https://www.ncbi.nlm.nih.gov/nuccore/U13369.1)).
-   - Filtering reads using rRNA blacklist with [`rRNAdust`](https://fantom.gsc.riken.jp/5/suppl/rRNAdust/).
+**2.**&nbsp;&nbsp;&nbsp;&nbsp;Trimming and filtering reads using [`fastp`](https://github.com/OpenGene/fastp). (Number of trimmed bases should match barcode length.) \
+**3.**&nbsp;&nbsp;&nbsp;&nbsp;rRNA filtering with [`rRNAdust`](https://fantom.gsc.riken.jp/5/suppl/rRNAdust/) & rRNA blacklist (optional, e.g., human rDNA [U13369.1](https://www.ncbi.nlm.nih.gov/nuccore/U13369.1)). \
 **4.**&nbsp;&nbsp;&nbsp;&nbsp;Quality check after filtering using [`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). \
 **5.**&nbsp;&nbsp;&nbsp;&nbsp;Mapping reads using [`STAR`](https://github.com/alexdobin/STAR). \
 **6.**&nbsp;&nbsp;&nbsp;&nbsp;Using VCF for variant-aware mapping (optional). \
