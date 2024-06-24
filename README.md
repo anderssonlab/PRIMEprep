@@ -20,10 +20,10 @@ Preprocessing, QC and mapping of CAGE sequencing data. Produces data compatible 
 
 
 ## Output directories & content
-- **QC**          Contains all QC reports. These can be consolidated into a single report using [`MultiQC`](https://multiqc.info).
-- **bam_files** contains the mapped reads. The G correction step does not alter these files.
-- **bed_files** contains corresponding bed files. If G correction is performed, unmatched G's at the 5' end will be removed from these files.
-- **bw_files** contains BigWig files compatible with [PRIME](https://github.com/anderssonlab/PRIME).
+- **QC**&nbsp;&nbsp;&nbsp;&nbsp;Contains all QC reports. These can be consolidated into a single report using [`MultiQC`](https://multiqc.info).
+- **bam_files**&nbsp;&nbsp;&nbsp;&nbsp;Contains the mapped reads. The G correction step does not alter these files.
+- **bed_files**&nbsp;&nbsp;&nbsp;&nbsp;Contains the corresponding bed files. If G correction is performed, unmatched G's at the 5' end will be removed from these files.
+- **bw_files**&nbsp;&nbsp;&nbsp;&nbsp;Contains bigWig files compatible with [`PRIME`](https://github.com/anderssonlab/PRIME).
 
 
 ## Dependencies
@@ -50,16 +50,16 @@ chrom size file in `${GENOME_PATH}/${GENOME}/${GENOME}.chrom.sizes`
 ## Parameters
 ```
 -h               This help message.
--f [STRING]      Fastq.gz file(s). [required]
--g [STRING]      Specify reference genome. [required]
--b [INTEGER]     Number of trimmed bases. [default = 3]
--t [INTEGER]     Number of threads used. [default = 6]
--p [STRING]      Genome path. [required]
--s [STRING]      Script directory path. [required]
--o [STRING]      Output directory. [default = "./"]
--d [STRING]      rRNA blacklist. [optional, default = false, enables rRNA filtering]
--a [BOOL]        Correct G additions. [optional, default = true]
--v [STRING]      VCF path. [optional, default = false, enables VCF usage]
+-f [STRING]      Fastq.gz file(s).           [required]
+-g [STRING]      Specify reference genome.   [required]
+-b [INTEGER]     Number of trimmed bases.    [default = 3]
+-t [INTEGER]     Number of threads used.     [default = 6]
+-p [STRING]      Genome path.                [required]
+-s [STRING]      Script directory path.      [required]
+-o [STRING]      Output directory.           [default = "./"]
+-d [STRING]      rRNA blacklist.             [optional, default = false, enables rRNA filtering]
+-a [BOOL]        Correct G additions.        [optional, default = true]
+-v [STRING]      VCF path.                   [optional, default = false, enables VCF usage]
 ```
 
 ## Example
