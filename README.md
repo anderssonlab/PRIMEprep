@@ -13,8 +13,8 @@ Preprocessing, QC and mapping of CAGE sequencing data. Produces data compatible 
 **7.**&nbsp;&nbsp;&nbsp;&nbsp;Indexing the generated BAM file using [`samtools`](http://www.htslib.org). \
 **8.**&nbsp;&nbsp;&nbsp;&nbsp;Calculating the alignment complexity using [`preseq`](https://preseq.readthedocs.io/en/latest/). \
 **9.**&nbsp;&nbsp;&nbsp;&nbsp;Calculating alignment statistics using [`samtools`](http://www.htslib.org). \
-**10.**&nbsp;&nbsp;&nbsp;&nbsp;Removing unmatched G additions (optional, recommended).
-    - Identify and process reads with G additions on the 5' end using [`samtools`](http://www.htslib.org) and [`bedtools`](https://bedtools.readthedocs.io/en/latest/).
+**10.**&nbsp;&nbsp;&nbsp;Removing unmatched G additions (optional, recommended). \
+&nbsp;&nbsp;&nbsp;&nbsp;- Identify and process reads with G additions on the 5' end using [`samtools`](http://www.htslib.org) and [`bedtools`](https://bedtools.readthedocs.io/en/latest/).
 
 
 ## Output directories & content
