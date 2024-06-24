@@ -20,12 +20,12 @@ Shell sript to preprocess single- or paired-end CAGE-sequencing data as generate
 
 - **QC**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contains all QC reports. These can be consolidated into a single report using [`MultiQC`](https://multiqc.info).
 - **bam_files**&nbsp;&nbsp;&nbsp;&nbsp;Contains the mapped reads. The G correction step does not alter these files.
-- **bed_files**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contains bed files. If G correction is performed, unmatched G's at the 5' end will be removed from these files.
+- **bed_files**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contains bed files. If G correction is performed, unmatched G's at the 5' end will be removed.
 - **bw_files**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contains bigWig files compatible with [`PRIME`](https://github.com/anderssonlab/PRIME).
 
 ## Dependencies
 
-**[1.] A script directory is required (Provided via `-s` flag, see Parameters.) including a `bin/` subdirectory that contain:**
+**[1.] A script directory is required (Provided via `-s` flag, see Parameters.) including a `bin/` subdirectory that contains:**
 - **[`rRNAdust`](https://fantom.gsc.riken.jp/5/suppl/rRNAdust/)**(v1.02)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tool to filter abundant rRNA species.
 - **[`bedGraphToBigWig`](https://www.encodeproject.org/software/bedgraphtobigwig/)**(v4.0)&nbsp;&nbsp;&nbsp;Allows converting bedGraph to bigWig files.
 
