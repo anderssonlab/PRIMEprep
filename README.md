@@ -19,13 +19,11 @@ Preprocessing, QC and mapping of CAGE sequencing data. Produces data compatible 
     - Identify and process reads with G additions on the 5' end using `samtools` and `bedtools`
 
 
-## Output
-- `${OUT}/QC` contains all QC reports. These can be consolidated into a single report using `MultiQC`.
-- `${OUT}/bam_files` contains the mapped reads. The G correction step does not alter these files.
-- `${OUT}/bed_files` contains corresponding bed files. If G correction is performed, unmatched G's at the 5' end will be removed from these files.
-- `${OUT}/bw_files` contains BigWig files compatible with [PRIME](https://github.com/anderssonlab/PRIME).
-
-
+## Output directories & content
+- **QC**          Contains all QC reports. These can be consolidated into a single report using [`MultiQC`](https://multiqc.info).
+- **bam_files** contains the mapped reads. The G correction step does not alter these files.
+- **bed_files** contains corresponding bed files. If G correction is performed, unmatched G's at the 5' end will be removed from these files.
+- **bw_files** contains BigWig files compatible with [PRIME](https://github.com/anderssonlab/PRIME).
 
 
 ## Dependencies
@@ -50,19 +48,19 @@ chrom size file in `${GENOME_PATH}/${GENOME}/${GENOME}.chrom.sizes`
 
 
 ## Parameters
-
-- **f [STRING]**: Fastq.gz file (required).
-- **g [STRING]**: Reference genome (default=`${GENOME}`).
-- **b [INTEGER]**: Number of trimmed bases (default=`${FIRST_BASE}`).
-- **t [INTEGER]**: Number of threads used (default=`${THREADS}`).
-- **d [STRING]**: rRNA blacklist (default=`${DUSTFILE}`).
-- **o [STRING]**: Output directory (default=`${OUT}`).
-- **i [BOOL]**: rDNA filtering (default=`${FILTER}`).
-- **a [BOOL]**: Correct G additions and create bed files (default=`${G_CORRECT}`).
-- **v [STRING]**: VCF path (enables VCF usage).
-- **p [STRING]**: Genome path (required).
-- **s [STRING]**: Script directory path (required).
-- **h**: This help message.
+```
+-h               This help message.
+-f [STRING]      Fastq.gz file(s). [required]
+-g [STRING]      Specify reference genome. [required]
+-b [INTEGER]     Number of trimmed bases. [default = 3]
+-t [INTEGER]     Number of threads used. [default = 6]
+-p [STRING]      Genome path. [required]
+-s [STRING]      Script directory path. [required]
+-o [STRING]      Output directory. [default = "./"]
+-d [STRING]      rRNA blacklist. [optional, default = false, enables rRNA filtering]
+-a [BOOL]        Correct G additions. [optional, default = true]
+-v [STRING]      VCF path. [optional, default = false, enables VCF usage]
+```
 
 ## Example
 ```bash
