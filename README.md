@@ -4,18 +4,18 @@ Preprocessing, QC and mapping of CAGE sequencing data. Produces data compatible 
 
 ## Overview
 
-1. Quality check before filtering using FastQC
-2. Trim and filter reads using `fastp`
+**1.**&nbsp;&nbsp;&nbsp;&nbsp;Quality check before filtering using FastQC
+**2.**&nbsp;&nbsp;&nbsp;&nbsp;Trim and filter reads using `fastp`
    - Number of trimmed bases should match barcode length
-3. rDNA filtering (optional)
+**3.**&nbsp;&nbsp;&nbsp;&nbsp;rDNA filtering (optional)
    - Filter reads using rRNA blacklist with `rRNAdust`
-4. Quality check after filtering using `FastQC`
-5. Map reads using `STAR`
-6. Optional: Using VCF for variant-aware mapping**
-7. Index resulting BAM file using `samtools`
-8. Calculate alignment complexity using `preseq`
-9. Calculate alignment statistics using `samtools`
-10. Optional but recommended: Remove unmatched G additions and create bed files
+**4.**&nbsp;&nbsp;&nbsp;&nbsp;Quality check after filtering using `FastQC`
+**5.**&nbsp;&nbsp;&nbsp;&nbsp;Map reads using `STAR`
+**6.**&nbsp;&nbsp;&nbsp;&nbsp;Optional: Using VCF for variant-aware mapping**
+**7.**&nbsp;&nbsp;&nbsp;&nbsp;Index resulting BAM file using `samtools`
+**8.**&nbsp;&nbsp;&nbsp;&nbsp;Calculate alignment complexity using `preseq`
+**9.**&nbsp;&nbsp;&nbsp;&nbsp;Calculate alignment statistics using `samtools`
+**10.**&nbsp;&nbsp;&nbsp;&nbsp;Optional but recommended: Remove unmatched G additions and create bed files
     - Identify and process reads with G additions on the 5' end using `samtools` and `bedtools`
 
 
@@ -23,7 +23,7 @@ Preprocessing, QC and mapping of CAGE sequencing data. Produces data compatible 
 - **QC**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contains all QC reports. These can be consolidated into a single report using [`MultiQC`](https://multiqc.info).
 - **bam_files**&nbsp;&nbsp;&nbsp;&nbsp;Contains the mapped reads. The G correction step does not alter these files.
 - **bed_files**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contains bed files. If G correction is performed, unmatched G's at the 5' end will be removed from these files.
-- **bw_files**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contains bigWig files compatible with [`PRIME`](https://github.com/anderssonlab/PRIME).
+- **bw_files**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contains bigWig files compatible with [`PRIME`](https://github.com/anderssonlab/PRIME).
 
 
 ## Dependencies
@@ -62,10 +62,29 @@ chrom size file in `${GENOME_PATH}/${GENOME}/${GENOME}.chrom.sizes`
 -v [STRING]      VCF path.                   [optional, default = false, enables VCF usage]
 ```
 
-## Example
+## Example for single-end data
 ```bash
-./CAGE_STAR_mapping.sh -f [FASTQ_FILE] -g [GENOME] -b [TRIM_BASES] -t [THREADS] -d [DUSTFILE] -o [OUTPUT_DIR] -i [FILTER] -a [G_CORRECT] -v [VCF_PATH] -p [GENOME_PATH] -s [SCRIPTDIR]
+./CAGE_STAR_mapping.sh \
+   -f *_001.fastq.gz \
+   -g hg38 \
+   -t 3 \
+   -p  /path/to/genome/hg38/STAR/ \
+   -s /path/to/script/directory/ \
+   -d /path/to/human/rDNA/dustfile/U13369.1.fa \
+   -o . \
+   -a true
+```
 
+## Example for paired-end data
+```bash
+./CAGE_STAR_mapping.sh \
+   -f *R1_001.fastq.gz \
+   -f *R2_001.fastq.gz \
+   -g hg38 \
+   -t 6 \
+   -p  /path/to/genome/hg38/STAR/ \
+   -s /path/to/script/directory/ \
+   -d /path/to/human/rDNA/dustfile/U13369.1.fa
 ```
 
 ## Citation
