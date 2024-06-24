@@ -26,7 +26,7 @@ Shell sript to preprocess single- or paired-end CAGE-sequencing data as generate
 ## Dependencies
 
 A script directory is required (Provided via `-s` flag, see **Parameters**.) including a `bin/` subdirectory that contain:
-- **[`rRNAdust`]**(https://fantom.gsc.riken.jp/5/suppl/rRNAdust/)(v1.02) for the option to filter abundant rRNA species.
+- **[`rRNAdust`](https://fantom.gsc.riken.jp/5/suppl/rRNAdust/)**(v1.02) for the option to filter abundant rRNA species.
 - **[`bedGraphToBigWig`]**(https://www.encodeproject.org/software/bedgraphtobigwig/)(v4.0) to convert bedGraph to bigWig files.
 
 The following software must be installed and permissions granted to execute them:
