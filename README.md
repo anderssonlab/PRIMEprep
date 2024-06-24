@@ -25,11 +25,11 @@ Shell sript to preprocess single- or paired-end CAGE-sequencing data as generate
 
 ## Dependencies
 
-**A script directory is required (Provided via `-s` flag, see Parameters.) including a `bin/` subdirectory that contain:**
+**[1.] A script directory is required (Provided via `-s` flag, see Parameters.) including a `bin/` subdirectory that contain:**
 - **[`rRNAdust`](https://fantom.gsc.riken.jp/5/suppl/rRNAdust/)**(v1.02)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tool to filter abundant rRNA species.
 - **[`bedGraphToBigWig`](https://www.encodeproject.org/software/bedgraphtobigwig/)**(v4.0)&nbsp;&nbsp;&nbsp;Allows converting bedGraph to bigWig files.
 
-**The following software must be installed and permissions granted to execute them:**
+**[2.] The following software must be installed and permissions granted to execute them:**
 - **[`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)**&nbsp;(v0.12.1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quality control tool for high throughput sequence data. 
 - **[`fastp`](https://github.com/OpenGene/fastp)**&nbsp;(v0.23.4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A tool for quality control and filtering of sequencing data. 
 - **[`STAR`](https://github.com/alexdobin/STAR)**&nbsp;(v2.7.3a)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RNA-seq aligner for mapping reads to the genome. 
@@ -39,7 +39,7 @@ Shell sript to preprocess single- or paired-end CAGE-sequencing data as generate
 - **[`openjdk`](https://openjdk.org)**&nbsp;(v20.0.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Java runtime environment.
 - **[`bedtools`](https://bedtools.readthedocs.io/en/latest/)**&nbsp;(v2.31.0))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set of tools for genome arithmetic.
 
-**Paths for the following, pre-computed files need to be provided:**
+**[3.] Paths for the following, pre-computed files need to be provided:**
 - The path to the STAR genome index corresponding to the species the datasets are derived from, e.g., 'hg38/STAR` (Provided by `-g` and `-p`, see **Parameters**). For instance, for the hg38 genome assembly, the corresponding human STAR genome index is prepared from the corresponding [fasta](https://www.encodeproject.org/files/GRCh38_no_alt_analysis_set_GCA_000001405.15/@@download/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta.gz) and [gtf](https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_43/gencode.v43.chr_patch_hapl_scaff.annotation.gtf.gz) files:
 ```
 STAR   \
