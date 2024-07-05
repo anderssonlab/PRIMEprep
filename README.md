@@ -40,7 +40,7 @@ Shell sript to preprocess single- or paired-end CAGE-sequencing data as generate
 - **[`bedtools`](https://bedtools.readthedocs.io/en/latest/)**&nbsp;(v2.31.0))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set of tools for genome arithmetic.
 
 **[3.] Paths for the following, pre-computed files need to be provided:**
-- The path to the STAR genome index corresponding to the species the datasets are derived from, e.g., 'hg38/STAR` (Provided by `-g` and `-p`, see **Parameters**). For instance, for the hg38 genome assembly, the corresponding human STAR genome index is prepared from the corresponding [fasta](https://www.encodeproject.org/files/GRCh38_no_alt_analysis_set_GCA_000001405.15/@@download/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta.gz) and [gtf](https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_43/gencode.v43.chr_patch_hapl_scaff.annotation.gtf.gz) files:
+- The path to the STAR genome index corresponding to the species the datasets are derived from (Provided by `-g` and `-p`, see **Parameters**). For instance, for the hg38 genome assembly, the corresponding human STAR genome index is prepared from the corresponding [fasta](https://www.encodeproject.org/files/GRCh38_no_alt_analysis_set_GCA_000001405.15/@@download/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta.gz) and [gtf](https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_43/gencode.v43.chr_patch_hapl_scaff.annotation.gtf.gz) files:
 ```
 STAR   \
    --runMode genomeGenerate \
@@ -50,7 +50,7 @@ STAR   \
    --sjdbGTFfile ./gencode.v43.chr_patch_hapl_scaff.annotation.gtf
 ```
 
-- The path to a text file containing the chromosome sizes for the corresponding genome, e.g., 'hg38/hg38.chrom.sizes' (Provided by `-g` and `-p`, see **Parameters**). For instance, for the hg38 genome assembly, the chromosome size file is prepared from the [fasta](https://www.encodeproject.org/files/GRCh38_no_alt_analysis_set_GCA_000001405.15/@@download/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta.gz) via [`samtools`](http://www.htslib.org):
+- The path to a text file containing the chromosome sizes for the corresponding genome (Provided by `-g` and `-p`, see **Parameters**). For instance, for the hg38 genome assembly, the chromosome size file is prepared from the [fasta](https://www.encodeproject.org/files/GRCh38_no_alt_analysis_set_GCA_000001405.15/@@download/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta.gz) via [`samtools`](http://www.htslib.org):
 ```
 samtools faidx fasta/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
 cut -f1,2 fasta/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta.fai \
@@ -78,7 +78,7 @@ cut -f1,2 fasta/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta.fai \
    -f *_001.fastq.gz \
    -g hg38 \
    -t 3 \
-   -p  /path/to/genome/hg38/STAR/ \
+   -p  /path/to/genome/ \
    -s /path/to/script/directory/ \
    -d U13369.1 \
    -o . \
@@ -92,7 +92,7 @@ cut -f1,2 fasta/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta.fai \
    -f *R2_001.fastq.gz \
    -g hg38 \
    -t 6 \
-   -p  /path/to/genome/hg38/STAR/ \
+   -p  /path/to/genome/ \
    -s /path/to/script/directory/ \
    -d U13369.1
 ```
