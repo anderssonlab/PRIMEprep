@@ -78,7 +78,7 @@ cut -f1,2 fasta/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta.fai \
    -f *_001.fastq.gz \
    -g hg38 \
    -t 3 \
-   -p  /path/to/genome/ \
+   -p /path/to/genome/ \
    -s /path/to/script/directory/ \
    -d U13369.1 \
    -o . \
@@ -92,7 +92,7 @@ cut -f1,2 fasta/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta.fai \
    -f *R2_001.fastq.gz \
    -g hg38 \
    -t 6 \
-   -p  /path/to/genome/ \
+   -p /path/to/genome/ \
    -s /path/to/script/directory/ \
    -d U13369.1
 ```
