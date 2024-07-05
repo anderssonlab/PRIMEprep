@@ -80,7 +80,7 @@ cut -f1,2 fasta/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta.fai \
    -t 3 \
    -p  /path/to/genome/hg38/STAR/ \
    -s /path/to/script/directory/ \
-   -d /path/to/human/rDNA/dustfile/U13369.1.fa \
+   -d U13369.1 \
    -o . \
    -a true
 ```
@@ -94,7 +94,7 @@ cut -f1,2 fasta/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta.fai \
    -t 6 \
    -p  /path/to/genome/hg38/STAR/ \
    -s /path/to/script/directory/ \
-   -d /path/to/human/rDNA/dustfile/U13369.1.fa
+   -d U13369.1
 ```
 
 ## Citation
