@@ -141,7 +141,7 @@ if [[ -z ${SCRIPTDIR} ]]; then
     echo -e ${help_message}
     exit 1
   fi
-if [ ! -f ${DUSTFILE} ]; then
+if [ ! -f "${GENOME_PATH}/${DUSTFILE}/fasta/${DUSTFILE}.fa" ]; then
 		echo "No blacklist file found: ${DUSTFILE}"
 		echo -e ${help_message}
 		exit 1
@@ -222,15 +222,15 @@ done
 ##Create_tmp_directory
 ##--------------------
 TEMPDIR=$( mktemp -d -p ${OUT} ) #Remove -p flag?
-trap "rm -rf ${TEMPDIR}" EXIT
-printf "Temporary directory:\t\t\t\t%s\n" ${TEMPDIR}
+# trap "rm -rf ${TEMPDIR}" EXIT
+printf "Temporary directory:\t\t\t%s\n" ${TEMPDIR}
 
 printf "\n%s\t\t\t%s" "TempDir" ${TEMPDIR} \
   >> ${OUT}/${PREFIX}_parameter.log
 
 ##Quality_check_before_filtering
 ##------------------------------
-printf "Quality check before filtering:\t%s\n" ${PREFIX}
+printf "Quality check before filtering:\t\t%s\n" ${PREFIX}
 for f in ${FASTQ[@]}; do \
 		printf "\nQuality check: %s\n" ${f} \
 			>> ${OUT}/${PREFIX}_parameter.log; \
@@ -242,7 +242,7 @@ for f in ${FASTQ[@]}; do \
 		fastqc \
 			-o ${OUT}/QC/ \
 			${f} \
-			>> ${OUT}/QC/${PREFIX}_parameter.log 2>&1
+			>> ${OUT}/${PREFIX}_parameter.log 2>&1
 	done
 
 ##Trim_reads
@@ -267,9 +267,9 @@ if [ ${#FASTQ[@]} -gt 1 ]; then \
   fi
 
 eval "${FASTP_CMD[@]}" \
-	>> ${OUT}/QC/${PREFIX}_parameter.log 2>&1
+	>> ${OUT}/${PREFIX}_parameter.log 2>&1
 
-printf "Trimming of reads done:\t\t%s\n" ${PREFIX}
+printf "Trimming of reads done:\t\t\t%s\n" ${PREFIX}
 
 for f in ${FASTQ[@]}; do \
     printf "\n%s\t\t\t%s" "TrimmedFile" ${TEMPDIR}/${f/.fastq.gz/_trimmed.fastq.gz} \
@@ -286,7 +286,7 @@ if ${FILTER}; then \
     				| ${SCRIPTDIR}/bin/rRNAdust \
     					${GENOME_PATH}/${DUSTFILE}/fasta/${DUSTFILE}.fa \
     					-t ${THREADS} \
-    					2>> ${OUT}/QC/${PREFIX}_parameter.log \
+    					2>> ${OUT}/${PREFIX}_parameter.log \
     				|	gzip > ${TEMPDIR}/${f/.fastq.gz/_filtered.fastq.gz}
 
     		printf "\n%s\t\t\t%s" "FilteredFile" ${TEMPDIR}/${f/.fastq.gz/_filtered.fastq.gz} \
@@ -318,7 +318,7 @@ for f in ${FASTQ[@]}; do
 		fastqc \
 			-o ${OUT}/QC/ \
 			${TEMPDIR}/${f/.fastq.gz/_filtered.fastq.gz} \
-			>> ${OUT}/QC/${PREFIX}_parameter.log 2>&1
+			>> ${OUT}/${PREFIX}_parameter.log 2>&1
 	done
 
 
@@ -380,7 +380,7 @@ printf "\n%s\t\t\t%s" "BaiFile" ${OUT}/bam_files/${PREFIX}_filtered.Aligned.sort
 
 ##Calculate_alignment_complexity
 ##------------------------------
-printf "Calculate alignment complexity:\t%s\n" ${PREFIX}
+printf "Calculate alignment complexity:\t\t%s\n" ${PREFIX}
 preseq c_curve \
 	-output ${OUT}/QC/${PREFIX}_filtered_preseq.txt \
 	-bam ${OUT}/bam_files/${PREFIX}_filtered.Aligned.sortedByCoord.out.bam
@@ -407,7 +407,7 @@ printf "\n%s\t\t\t%s" "FlagStats" ${OUT}/QC/${PREFIX}_filtered.Aligned.sortedByC
 ##---------------------------
 ##create_final_bed_file_if_G_CORRECT_is_true
 if ${G_CORRECT}; then
-  printf "Removing unmatched G on 5' end and creating bedfiles:\t\t%s\n" ${PREFIX}
+  printf "Removing unmatched G on 5' end:\t\t%s\n" ${PREFIX}
 
   #Remove_unmatched_G_addition_on_+_strand
   #---------------------------------------
@@ -474,7 +474,7 @@ if ${G_CORRECT}; then
     | sort -k 1,1 -k2,2n  \
     > ${OUT}/bed_files/${PREFIX}.bed
 
-  printf "Finished removing unmatched G and creating bed file:\t%s\n" ${PREFIX}
+  printf "Finished removing unmatched G:\t\t%s\n" ${PREFIX}
 
 else
 
