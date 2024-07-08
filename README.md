@@ -27,7 +27,7 @@ Shell sript to preprocess single- or paired-end CAGE-sequencing data as generate
 
 **[1.] The following software must be installed and permissions granted to execute them:**
 - **[`rRNAdust`](https://fantom.gsc.riken.jp/5/suppl/rRNAdust/)**(v1.02)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tool to filter abundant rRNA species.
-- **[`bedGraphToBigWig`](https://www.encodeproject.org/software/bedgraphtobigwig/)**(v4.0)&nbsp;&nbsp;&nbsp;Allows converting bedGraph to bigWig files.
+- **[`bedGraphToBigWig`](https://www.encodeproject.org/software/bedgraphtobigwig/)**(v4.0)&nbsp;&nbsp;Allows converting bedGraph to bigWig files.
 - **[`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)**&nbsp;(v0.12.1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quality control tool for high throughput sequence data. 
 - **[`fastp`](https://github.com/OpenGene/fastp)**&nbsp;(v0.23.4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A tool for quality control and filtering of sequencing data. 
 - **[`STAR`](https://github.com/alexdobin/STAR)**&nbsp;(v2.7.3a)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RNA-seq aligner for mapping reads to the genome. 
@@ -35,7 +35,7 @@ Shell sript to preprocess single- or paired-end CAGE-sequencing data as generate
 - **[`preseq`](https://preseq.readthedocs.io/en/latest/)**&nbsp;(v2.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For estimating library complexity.
 - **[`Perl`](https://www.perl.org/get.html)**&nbsp;(v5.38.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Required for running various scripts. 
 - **[`openjdk`](https://openjdk.org)**&nbsp;(v20.0.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Java runtime environment.
-- **[`bedtools`](https://bedtools.readthedocs.io/en/latest/)**&nbsp;(v2.31.0))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set of tools for genome arithmetic.
+- **[`bedtools`](https://bedtools.readthedocs.io/en/latest/)**&nbsp;(v2.31.0))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set of tools for genome arithmetic.
 
 **[2.] Paths for the following, pre-computed files need to be provided:**
 - The path to the STAR genome index corresponding to the species the datasets are derived from (Provided by `-g`, see **Parameters**). For instance, for the hg38 genome assembly, the corresponding human STAR genome index is prepared from the corresponding [fasta](https://www.encodeproject.org/files/GRCh38_no_alt_analysis_set_GCA_000001405.15/@@download/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta.gz) and [gtf](https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_43/gencode.v43.chr_patch_hapl_scaff.annotation.gtf.gz) files:
@@ -47,6 +47,7 @@ STAR   \
    --genomeFastaFiles fasta/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta \
    --sjdbGTFfile ./gencode.v43.chr_patch_hapl_scaff.annotation.gtf
 ```
+- The path to the fasta file including the rDNA sequence corresponding to the reference genome, e.g., [U13369.1](https://www.ncbi.nlm.nih.gov/nuccore/U13369.1) for the human genme assembly hg38.
 
 ## Parameters
 ```
@@ -85,4 +86,4 @@ STAR   \
 
 ## Citation
 
-To be added
+To be added.
