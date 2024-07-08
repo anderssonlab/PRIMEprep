@@ -28,13 +28,13 @@ Shell sript to preprocess single- or paired-end CAGE-sequencing data as generate
 **[1.] The following software must be installed and permissions granted to execute them:**
 - **[`rRNAdust`](https://fantom.gsc.riken.jp/5/suppl/rRNAdust/)**(v1.02)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tool to filter abundant rRNA species.
 - **[`bedGraphToBigWig`](https://www.encodeproject.org/software/bedgraphtobigwig/)**(v4.0)&nbsp;&nbsp;Allows converting bedGraph to bigWig files.
-- **[`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)**&nbsp;(v0.12.1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quality control tool for high throughput sequence data. 
-- **[`fastp`](https://github.com/OpenGene/fastp)**&nbsp;(v0.23.4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A tool for quality control and filtering of sequencing data. 
-- **[`STAR`](https://github.com/alexdobin/STAR)**&nbsp;(v2.7.3a)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RNA-seq aligner for mapping reads to the genome. 
-- **[`samtools`](http://www.htslib.org)**&nbsp;(v1.20.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tools for manipulating next-generation sequencing data in BAM format.
-- **[`preseq`](https://preseq.readthedocs.io/en/latest/)**&nbsp;(v2.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For estimating library complexity.
-- **[`Perl`](https://www.perl.org/get.html)**&nbsp;(v5.38.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Required for running various scripts. 
-- **[`openjdk`](https://openjdk.org)**&nbsp;(v20.0.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Java runtime environment.
+- **[`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)**&nbsp;(v0.12.1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quality control tool for high throughput sequence data. 
+- **[`fastp`](https://github.com/OpenGene/fastp)**&nbsp;(v0.23.4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A tool for quality control and filtering of sequencing data. 
+- **[`STAR`](https://github.com/alexdobin/STAR)**&nbsp;(v2.7.3a)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RNA-seq aligner for mapping reads to the genome. 
+- **[`samtools`](http://www.htslib.org)**&nbsp;(v1.20.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tools for manipulating next-generation sequencing data in BAM format.
+- **[`preseq`](https://preseq.readthedocs.io/en/latest/)**&nbsp;(v2.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For estimating library complexity.
+- **[`Perl`](https://www.perl.org/get.html)**&nbsp;(v5.38.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Required for running various scripts. 
+- **[`openjdk`](https://openjdk.org)**&nbsp;(v20.0.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Java runtime environment.
 - **[`bedtools`](https://bedtools.readthedocs.io/en/latest/)**&nbsp;(v2.31.0))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set of tools for genome arithmetic.
 
 **[2.] Paths for the following, pre-computed files need to be provided:**
