@@ -18,11 +18,8 @@ DATE=$(date +%Y%m%d)
 
 ##Default_parameters
 ##------------------
-GENOME=""
 FIRST_BASE=3
 THREADS=6
-GENOME_PATH=""
-SCRIPTDIR=""
 OUT=$(pwd)
 
 FILTER=false    #Default is false: do not filter rDNA
@@ -39,38 +36,30 @@ help_message="\
 Options:\n\
 \t-h\t\t\tThis help message.\n\
 \t-f\t[STRING]\tFastq.gz file(s)\t\t\t[required]\n\
-\t-g\t[STRING]\tReference genome.\t\t\t[default=${GENOME}]\n\
+\t-g\t[STRING]\tPath to STAR index of reference genome.\t[required]\n\
 \t-b\t[INTEGER]\tNumber of trimmed bases.\t\t[default=${FIRST_BASE}]\n\
 \t-t\t[INTEGER]\tNumber of threads used.\t\t\t[default=${THREADS}]\n\
-\t-p\t[STRING]\tGenome path.\t\t\t\t[required]\n\
-\t-s\t[STRING]\tScript directory path.\t\t\t[required]\n\
 \t-o\t[STRING]\tOutput directory.\t\t\t[default=${OUT}]\n\
-\t-d\t[STRING]\trRNA blacklist.\t\t\t\t[default=${DUSTFILE}]\n\
-\t-a\t[BOOL]\t\tCorrect G additions.\t[default=${G_CORRECT}]\n
+\t-d\t[STRING]\trDNA blacklist fasta file.\t\t[default=${DUSTFILE}]\n\
+\t-a\t[BOOL]\t\tCorrect G additions.\t\t\t[default=${G_CORRECT}]\n
 \t-v\t[BOOL]\t\tVCF path.\t\t\t\t[default=${VCF_PATH}]\n\
 "
 
 ##Parse_utility_options
 ##---------------------
-while getopts 'f:g:b:t:p:s:o:d:a:v:h' opt; do
+while getopts 'f:g:b:t:o:d:a:v:h' opt; do
   case ${opt} in
     f)
       FASTQ+=(${OPTARG})
       ;;
     g)
-      GENOME=${OPTARG}
+      STAR_INDEX_PATH=${OPTARG}
       ;;
     b)
       FIRST_BASE=${OPTARG}
       ;;
     t)
       THREADS=${OPTARG}
-      ;;
-    p)
-      GENOME_PATH=${OPTARG}
-      ;;
-    s)
-      SCRIPTDIR=${OPTARG}
       ;;
     o)
       OUT=${OPTARG}
@@ -97,11 +86,6 @@ while getopts 'f:g:b:t:p:s:o:d:a:v:h' opt; do
   esac
 done
 
-##Create_output_subdirectories
-##----------------------------
-mkdir -p ${OUT}/{bam_files,bed_files,bw_files,QC}
-chmod -R g+ws ${OUT}/{bam_files,bed_files,bw_files,QC}
-
 ##Ensure_required_arguments_are_provided
 ##--------------------------------------
 if [ ${#FASTQ[@]} -eq 0 ]; then
@@ -121,31 +105,38 @@ for f in ${FASTQ[@]}; do
 			exit 1
 		fi
 	done
-if [ ${GENOME} = "" ]; then
-		echo "Badly set reference genome: ${GENOME}"
+if [ ! -f "${STAR_INDEX_PATH}/SA" ]; then
+		echo "No reference genome files found: ${STAR_INDEX_PATH}"
 		echo -e ${help_message}
 		exit 1
 	fi
-if [ ${GENOME} != "" ] && [ ! -f "${GENOME_PATH}/${GENOME}/STAR/SA" ]; then
-		echo "No reference genome files found: ${GENOME_PATH}"
-		echo -e ${help_message}
-		exit 1
-	fi
-if [ ${FIRST_BASE} = "" ]; then
+if [[ ${FIRST_BASE} == "" ]]; then
 		echo "Badly set first base: ${FIRST_BASE}"
 		echo -e ${help_message}
 		exit 1
 	fi
-if [[ -z ${SCRIPTDIR} ]]; then
-    echo "Script directory path is required."
-    echo -e ${help_message}
-    exit 1
-  fi
-if [ ! -f "${GENOME_PATH}/${DUSTFILE}/fasta/${DUSTFILE}.fa" ]; then
-		echo "No blacklist file found: ${DUSTFILE}"
+if ${FILTER} && [ ! -f "${DUSTFILE}" ]; then
+		echo "No rDNA blacklist fasta file found: ${DUSTFILE}"
 		echo -e ${help_message}
 		exit 1
 	fi
+REQS=(\
+    STAR gsl-config preseq \
+    fastp perl java \
+    fastqc samtools bedtools\
+  )
+for req in ${REQS[@]}; do
+  if [[ ! -f $(which ${req}) || ! -x $(which ${req}) ]]; then
+      echo "Executable not found: ${req}"
+      echo -e ${help_message}
+      exit 1
+    fi;
+  done
+
+##Create_output_subdirectories
+##----------------------------
+mkdir -p ${OUT}/{bam_files,bed_files,bw_files,QC}
+chmod -R g+ws ${OUT}/{bam_files,bed_files,bw_files,QC}
 
 ##Get_prefix_of_fastqs
 ##--------------------
@@ -196,16 +187,14 @@ printf "Running:\t\t\t\t%s\n" ${PREFIX}
 declare -A param=( \
 		[Date]=${DATE} \
     [Files]=$(echo -e ${FASTQ[@]}) \
-    [Genome]=${GENOME} \
+    [StarIndex]=${STAR_INDEX_PATH} \
     [TrimmedBp]=${FIRST_BASE} \
     [Threads]=${THREADS} \
-    [GenomeFasta]=${GENOME_PATH} \
-    [ScriptDir]=${SCRIPTDIR} \
 		[WorkingDir]=${OUT} \
     [Filter]=${FILTER} \
-		[Blacklist]=${DUSTFILE} \
+		[rDnaBlacklist]=${DUSTFILE} \
     [G-correct]=${G_CORRECT} \
-    [UseVCF]=${USE_VCF}\
+    [UseVcf]=${USE_VCF}\
     [PathVcf]=${VCF_PATH} \
 		[Prefixes]=$(echo -e ${PREFIXS[@]}) \
 		[Prefix]=${PREFIX}
@@ -283,8 +272,8 @@ if ${FILTER}; then \
 		printf "Filter reads:\t\t\t\t%s\n" ${PREFIX}; \
     for f in ${FASTQ[@]}; do \
     		gunzip -c ${TEMPDIR}/${f/.fastq.gz/_trimmed.fastq.gz} \
-    				| ${SCRIPTDIR}/bin/rRNAdust \
-    					${GENOME_PATH}/${DUSTFILE}/fasta/${DUSTFILE}.fa \
+    				| rRNAdust \
+    					${DUSTFILE} \
     					-t ${THREADS} \
     					2>> ${OUT}/${PREFIX}_parameter.log \
     				|	gzip > ${TEMPDIR}/${f/.fastq.gz/_filtered.fastq.gz}
@@ -341,7 +330,7 @@ STAR_CMD=(
   "--readQualityScoreBase 33"
   "--outFilterMultimapNmax 1"
   "--outFilterMultimapScoreRange 1"
-  "--genomeDir ${GENOME_PATH}/${GENOME}/STAR"
+  "--genomeDir ${STAR_INDEX_PATH}"
   "--runThreadN ${THREADS}"
   "--outFileNamePrefix ${OUT}/bam_files/${PREFIX}_filtered."
   "--outSAMtype BAM SortedByCoordinate"
@@ -517,13 +506,13 @@ cat ${OUT}/bed_files/${PREFIX}.ctss.bed \
 
 ##Convert_to_bigwig
 ##-----------------
-${SCRIPTDIR}/bin/bedGraphToBigWig \
+bedGraphToBigWig \
   ${TEMPDIR}/${PREFIX}.minus.bedgraph \
-  ${GENOME_PATH}/${GENOME}/chrom_size/${GENOME}.chrom.sizes \
+  ${STAR_INDEX_PATH}/chrNameLength.txt \
   ${OUT}/bw_files/${PREFIX}.minus.bw
-${SCRIPTDIR}/bin/bedGraphToBigWig \
+bedGraphToBigWig \
   ${TEMPDIR}/${PREFIX}.plus.bedgraph \
-  ${GENOME_PATH}/${GENOME}/chrom_size/${GENOME}.chrom.sizes \
+  ${STAR_INDEX_PATH}/chrNameLength.txt \
   ${OUT}/bw_files/${PREFIX}.plus.bw
 
 ##Remove_tmp_files
