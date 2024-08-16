@@ -47,7 +47,7 @@ STAR   \
    --genomeFastaFiles fasta/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta \
    --sjdbGTFfile ./gencode.v43.chr_patch_hapl_scaff.annotation.gtf
 ```
-- The path to the fasta file including the rDNA sequence corresponding to the reference genome, e.g., [U13369.1](https://www.ncbi.nlm.nih.gov/nuccore/U13369.1) for the human genme assembly hg38.
+- The path to the fasta file including the rDNA sequence corresponding to the reference genome, e.g., [U13369.1](https://www.ncbi.nlm.nih.gov/nuccore/U13369.1) for the human genome assembly hg38.
 
 ## Parameters
 ```
